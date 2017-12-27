@@ -6,11 +6,10 @@ Code Template
 
 """
 import logging
-
 import os
+
 import pandas
 from keras.callbacks import TensorBoard, ModelCheckpoint
-import matplotlib.pyplot as plt
 
 import lib
 import models
@@ -24,6 +23,8 @@ def main():
     :rtype: None
     """
     logging.basicConfig(level=logging.INFO)
+
+    logging.info('Beginning batch: {}'.format(lib.get_batch_name()))
 
     if lib.get_conf('new_data_pull'):
         observations = extract()

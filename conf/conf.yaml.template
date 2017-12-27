@@ -1,3 +1,4 @@
+batch_prefix: b
 data_schema_dir: ../data/schemas
 ngram_len: 40
 test_run: False
