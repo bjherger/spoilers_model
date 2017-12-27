@@ -60,6 +60,7 @@ def cnn_embedding(X, y):
     x = Conv1D(32, 10, activation='relu')(x)
     x = MaxPooling1D(3)(x)
     x = Flatten()(x)
+    x = Dense(128, activation='relu')(x)
     x = output_layer(x)
 
     optimizer = Adam()
