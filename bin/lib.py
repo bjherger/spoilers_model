@@ -1,16 +1,22 @@
 import datetime
 import logging
 import os
+import string
 import tempfile
 
 import numpy
 import pandas
+import re
 import yaml
 
 # Global variables
+from keras.preprocessing.sequence import pad_sequences
+
 CONFS = None
 BATCH_NAME = None
 TEMP_DIR = None
+CHAR_INDICES = None
+INDICES_CHAR = None
 
 
 def load_confs(confs_path='../conf/conf.yaml'):
@@ -130,3 +136,60 @@ def archive_dataset_schemas(step_name, local_dict, global_dict):
 
     # Write to file
     agg_schema_df.to_csv(schema_output_path, index_label='variable')
+
+def legal_characters():
+    chars = set(string.printable + '<>')
+    chars.remove('\n')
+    chars.remove('\r')
+    return chars
+
+def get_char_indices():
+    global CHAR_INDICES
+    if CHAR_INDICES is None:
+        chars = sorted(list(set(legal_characters())))
+        CHAR_INDICES = dict((c, i) for i, c in enumerate(chars))
+    return CHAR_INDICES
+
+def get_indices_char():
+    global INDICES_CHAR
+    if INDICES_CHAR is None:
+        chars = sorted(list(set(legal_characters())))
+        INDICES_CHAR = dict((i, c) for i, c in enumerate(chars))
+    return INDICES_CHAR
+
+def gen_x_y(uncleaned_text, y_list=None):
+    logging.info('Generating X and Y')
+
+    # Reference vars
+    chars = sorted(list(set(legal_characters())))
+    char_indices = get_char_indices()
+    indices_char = get_indices_char()
+    cleaned_text_chars = list()
+    cleaned_text_indices = list()
+
+    for text in uncleaned_text:
+        logging.debug('Raw text: {}'.format(text))
+
+        text = map(lambda x: x.lower(), text)
+        text = map(lambda x: x if x in legal_characters() else ' ', text)
+        text = ''.join(text)
+        text = re.sub(r'\s+', ' ', text)
+        text = text.strip()
+
+        # Add start and end characters
+        text = re.sub('<', ' ', text)
+        text = re.sub('>', ' ', text)
+        text = '<' + text + '>'
+
+        logging.debug('Cleaned text: {}'.format(text))
+        cleaned_text_chars.append(text)
+
+        text_indices = map(lambda x: char_indices[x], text)
+        logging.debug('Cleaned text indices: {}'.format(text_indices))
+        cleaned_text_indices.append(text_indices)
+
+    # Convert all sequences into X and Y matrices
+    x = pad_sequences(cleaned_text_indices, maxlen=get_conf('x_maxlen'), value= max(indices_char.keys())+1)
+    y = numpy.array(y_list, dtype=bool)
+
+    return x, y
