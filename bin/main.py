@@ -8,6 +8,7 @@ Code Template
 import logging
 
 import lib
+from reddit_scraper import scrape_subreddit
 
 
 def main():
@@ -28,9 +29,10 @@ def main():
 def extract():
     logging.info('Begin extract')
 
-    lib.archive_dataset_schemas('extract', locals(), globals())
+    observations = scrape_subreddit(lib.get_conf('subreddit'), lib.get_conf('history_num_days'))
     logging.info('End extract')
-    pass
+    lib.archive_dataset_schemas('extract', locals(), globals())
+    return observations
 
 
 def transform():

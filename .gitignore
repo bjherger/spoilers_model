@@ -8,3 +8,6 @@
 
 # User-specific Idea / Pycharm files
 .idea/
+
+# Conf file, containing use credentials
+conf/conf.yaml

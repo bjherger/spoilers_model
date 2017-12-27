@@ -1,1 +1,15 @@
-variable,variable,type,data_set
+variable,data_set,type,variable
+author,observations,object,
+downs,observations,object,
+id,observations,object,
+likes,observations,object,
+name,observations,object,
+num_comments,observations,object,
+over_18,observations,object,
+score,observations,object,
+selftext,observations,object,
+spoiler,observations,object,
+subreddit_name_prefixed,observations,object,
+title,observations,object,
+ups,observations,object,
+url,observations,object,
