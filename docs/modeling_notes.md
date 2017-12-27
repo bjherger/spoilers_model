@@ -15,3 +15,16 @@ Extract
 Transform
 
  - Creating modeling text
+ 
+## 2017-12-27
+
+Model
+
+ - Adding CNN model
+ - Adding LSTM model
+ - Adding CNN LSTM model, based on [keras example](https://github.com/keras-team/keras/blob/master/examples/imdb_cnn_lstm.py)
+ 
+Data
+ - Evaluating post length. 
+ - Based on post length histograms, it would appear that 2k is a decent length
+ ®- Running a new data pull, for 400 days

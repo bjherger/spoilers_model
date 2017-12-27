@@ -10,6 +10,7 @@ import logging
 import os
 import pandas
 from keras.callbacks import TensorBoard, ModelCheckpoint
+import matplotlib.pyplot as plt
 
 import lib
 import models
@@ -51,6 +52,7 @@ def transform(observations):
     if lib.get_conf('test_run'):
         logging.info('Sample run, selecting random sub-sample of observations')
         observations = observations.sample(n=150).copy()
+    logging.info('Utilizing {} observations'.format(len(observations.index)))
 
     # Create modeling text
     observations['modeling_text'] = observations['title'] + ' ' + observations['selftext']

@@ -22,10 +22,12 @@ dependencies:
 - !!python/unicode
   'zlib=1.2.8=3'
 - pip:
+  - backports.functools-lru-cache==1.4
   - backports.weakref==1.0.post1
   - bleach==1.5.0
   - certifi==2017.11.5
   - chardet==3.0.4
+  - cycler==0.10.0
   - enum34==1.1.6
   - feather-format==0.4.0
   - funcsigs==1.0.2
@@ -35,6 +37,7 @@ dependencies:
   - idna==2.6
   - keras==2.1.2
   - markdown==2.6.10
+  - matplotlib==2.1.1
   - mock==2.0.0
   - numpy==1.13.3
   - olefile==0.44
@@ -44,6 +47,7 @@ dependencies:
   - prawcore==0.13.0
   - protobuf==3.5.0.post1
   - pyarrow==0.8.0
+  - pyparsing==2.2.0
   - python-dateutil==2.6.1
   - pytz==2017.3
   - pyyaml==3.12
@@ -53,8 +57,10 @@ dependencies:
   - six==1.11.0
   - sklearn==0.0
   - sklearn-pandas==1.6.0
+  - subprocess32==3.2.7
   - tensorflow==1.4.1
   - tensorflow-tensorboard==0.4.0rc3
   - update-checker==0.16
   - urllib3==1.22
   - werkzeug==0.13
+prefix: !!python/unicode '/Users/bjherger/anaconda2/envs/spoilers'
