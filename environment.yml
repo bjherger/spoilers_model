@@ -1,11 +1,60 @@
-name: people
+name: spoilers
+channels:
+- !!python/unicode
+  'defaults'
 dependencies:
-- openssl=1.0.2h=2
-- pip=8.1.2=py27_0
-- python=2.7.12=1
-- readline=6.2=2
-- setuptools=26.1.1=py27_0
-- sqlite=3.13.0=0
-- tk=8.5.18=0
-- wheel=0.29.0=py27_0
-- zlib=1.2.8=3
+- !!python/unicode
+  'openssl'
+- !!python/unicode
+  'pip=8.1.2=py27_0'
+- !!python/unicode
+  'python=2.7.12=1'
+- !!python/unicode
+  'readline=6.2=2'
+- !!python/unicode
+  'setuptools=26.1.1=py27_0'
+- !!python/unicode
+  'sqlite=3.13.0=0'
+- !!python/unicode
+  'tk=8.5.18=0'
+- !!python/unicode
+  'wheel=0.29.0=py27_0'
+- !!python/unicode
+  'zlib=1.2.8=3'
+- pip:
+  - backports.weakref==1.0.post1
+  - bleach==1.5.0
+  - certifi==2017.11.5
+  - chardet==3.0.4
+  - enum34==1.1.6
+  - feather-format==0.4.0
+  - funcsigs==1.0.2
+  - futures==3.2.0
+  - h5py==2.7.1
+  - html5lib==0.9999999
+  - idna==2.6
+  - keras==2.1.2
+  - markdown==2.6.10
+  - mock==2.0.0
+  - numpy==1.13.3
+  - olefile==0.44
+  - pandas==0.21.1
+  - pbr==3.1.1
+  - praw==5.3.0
+  - prawcore==0.13.0
+  - protobuf==3.5.0.post1
+  - pyarrow==0.8.0
+  - python-dateutil==2.6.1
+  - pytz==2017.3
+  - pyyaml==3.12
+  - requests==2.18.4
+  - scikit-learn==0.19.1
+  - scipy==1.0.0
+  - six==1.11.0
+  - sklearn==0.0
+  - sklearn-pandas==1.6.0
+  - tensorflow==1.4.1
+  - tensorflow-tensorboard==0.4.0rc3
+  - update-checker==0.16
+  - urllib3==1.22
+  - werkzeug==0.13
