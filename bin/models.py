@@ -8,7 +8,7 @@ Code Template
 import keras
 import numpy
 from keras import Model
-from keras.layers import Embedding, Dense, LSTM, Conv1D, MaxPooling1D, Flatten
+from keras.layers import Embedding, Dense, LSTM, Conv1D, MaxPooling1D, Flatten, Dropout
 from keras.optimizers import Adam, RMSprop
 
 import lib
@@ -55,6 +55,7 @@ def cnn_embedding(X, y):
 
     x = sequence_input
     x = embedding_layer(x)
+    x = Dropout(.2)(x)
     x = Conv1D(32, 3, activation='relu')(x)
     x = Conv1D(32, 3, activation='relu')(x)
     x = MaxPooling1D(3)(x)
@@ -107,6 +108,7 @@ def lstm_embedding(X, y):
 
     x = sequence_input
     x = embedding_layer(x)
+    x = Dropout(.2)(x)
     x = LSTM(128)(x)
     x = output_layer(x)
 
@@ -156,6 +158,7 @@ def cnn_lstm_embedding(X, y):
 
     x = sequence_input
     x = embedding_layer(x)
+    x = Dropout(.2)(x)
     x = Conv1D(32, 3, padding='valid', activation='relu')(x)
     x = MaxPooling1D(3)(x)
     x = LSTM(128)(x)
