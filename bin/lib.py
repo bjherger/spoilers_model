@@ -189,7 +189,7 @@ def gen_x_y(uncleaned_text, y_list=None):
         cleaned_text_indices.append(text_indices)
 
     # Convert all sequences into X and Y matrices
-    x = pad_sequences(cleaned_text_indices, maxlen=get_conf('x_maxlen'), value= max(indices_char.keys())+1)
+    X = pad_sequences(cleaned_text_indices, maxlen=get_conf('x_maxlen'), value= max(indices_char.keys())+1)
     y = numpy.array(y_list, dtype=bool)
 
-    return x, y
+    return X, y

@@ -4,6 +4,8 @@ test_run: True
 new_data_pull: False
 client_secret: Y0urSecret
 client_id: Y0urID
-subreddit: Showerthoughts
+subreddit: StarWars
 history_num_days: 400
-post_pickle_path: ../data/pickles/posts_extract.arrow
+raw_observations_feather_path: ../data/serialized/raw_observations.feather
+x_maxlen: 100
+model_checkpoint_path: ../data/output/model_checkpoints
