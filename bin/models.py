@@ -56,8 +56,8 @@ def cnn_embedding(X, y):
     x = sequence_input
     x = embedding_layer(x)
     x = Dropout(.2)(x)
-    x = Conv1D(32, 3, activation='relu')(x)
-    x = Conv1D(32, 3, activation='relu')(x)
+    x = Conv1D(32, 10, activation='relu')(x)
+    x = Conv1D(32, 10, activation='relu')(x)
     x = MaxPooling1D(3)(x)
     x = Flatten()(x)
     x = output_layer(x)
@@ -159,7 +159,8 @@ def cnn_lstm_embedding(X, y):
     x = sequence_input
     x = embedding_layer(x)
     x = Dropout(.2)(x)
-    x = Conv1D(32, 3, padding='valid', activation='relu')(x)
+    x = Conv1D(32, 10, padding='valid', activation='relu')(x)
+    x = Conv1D(32, 10, padding='valid', activation='relu')(x)
     x = MaxPooling1D(3)(x)
     x = LSTM(128)(x)
     x = output_layer(x)
@@ -167,4 +168,4 @@ def cnn_lstm_embedding(X, y):
     optimizer = RMSprop(lr=.001)
     bool_model = Model(sequence_input, x)
     bool_model.compile(optimizer=optimizer, loss='binary_crossentropy')
-    pass
+    return bool_model
