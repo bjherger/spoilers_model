@@ -17,6 +17,7 @@ BATCH_NAME = None
 TEMP_DIR = None
 CHAR_INDICES = None
 INDICES_CHAR = None
+LEGAL_CHARS = None
 
 
 def load_confs(confs_path='../conf/conf.yaml'):
@@ -139,10 +140,13 @@ def archive_dataset_schemas(step_name, local_dict, global_dict):
     agg_schema_df.to_csv(schema_output_path, index_label='variable')
 
 def legal_characters():
-    chars = set(string.printable + '<>')
-    chars.remove('\n')
-    chars.remove('\r')
-    return chars
+    global LEGAL_CHARS
+    if LEGAL_CHARS is None:
+        chars = set(string.printable + '<>')
+        chars.remove('\n')
+        chars.remove('\r')
+        LEGAL_CHARS = chars
+    return LEGAL_CHARS
 
 def get_char_indices():
     global CHAR_INDICES
