@@ -51,7 +51,7 @@ def cnn_embedding(X, y):
                                 trainable=True,
                                 name='char_embedding')
 
-    output_layer = Dense(units=softmax_output_dim, activation='softmax')
+    output_layer = Dense(units=softmax_output_dim, activation='sigmoid')
 
     x = sequence_input
     x = embedding_layer(x)
@@ -97,7 +97,7 @@ def lstm_embedding(X, y):
     else:
         softmax_output_dim = 1
 
-    sequence_input = keras.Input(shape=(model_input_length,), dtype=dtype, name='char_input')
+    sequence_input = keras.Input(shape=(model_input_length,), dtype=dtype, name='sigmoid')
 
     embedding_layer = Embedding(input_dim=embedding_input_dim,
                                 output_dim=embedding_output_dim,
@@ -105,7 +105,7 @@ def lstm_embedding(X, y):
                                 trainable=True,
                                 name='char_embedding')
 
-    output_layer = Dense(units=softmax_output_dim, activation='softmax')
+    output_layer = Dense(units=softmax_output_dim, activation='sigmoid')
 
     x = sequence_input
     x = embedding_layer(x)
@@ -155,7 +155,7 @@ def cnn_lstm_embedding(X, y):
                                 trainable=True,
                                 name='char_embedding')
 
-    output_layer = Dense(units=softmax_output_dim, activation='softmax')
+    output_layer = Dense(units=softmax_output_dim, activation='sigmoid')
 
     x = sequence_input
     x = embedding_layer(x)

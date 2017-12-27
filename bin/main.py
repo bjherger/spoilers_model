@@ -52,7 +52,7 @@ def transform(observations):
 
     if lib.get_conf('test_run'):
         logging.info('Sample run, selecting random sub-sample of observations')
-        observations = observations.sample(n=150).copy()
+        observations = observations.sample(n=1000).copy()
     logging.info('Utilizing {} observations'.format(len(observations.index)))
 
     # Create modeling text
@@ -85,7 +85,7 @@ def model(observations, X, y):
     bool_model = models.cnn_embedding(X, y)
 
     # Fit model
-    bool_model.fit(X, y, callbacks=callbacks, validation_split=.2, epochs=300)
+    bool_model.fit(X, y, callbacks=callbacks, validation_split=.2, epochs=300, batch_size=512)
 
     lib.archive_dataset_schemas('model', locals(), globals())
     logging.info('End model')
