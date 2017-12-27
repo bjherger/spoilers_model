@@ -11,3 +11,6 @@
 
 # Conf file, containing use credentials
 conf/conf.yaml
+
+# Model checkpoints
+data/output/model_checkpoints/

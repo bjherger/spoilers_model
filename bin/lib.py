@@ -72,7 +72,8 @@ def get_batch_name():
 
     if BATCH_NAME is None:
         logging.info('Batch name not yet set. Setting batch name.')
-        BATCH_NAME = str(datetime.datetime.utcnow()).replace(' ', '_').replace('/', '_').replace(':', '_')
+        batch_prefix = get_conf('batch_prefix')
+        BATCH_NAME = batch_prefix + '_' + str(datetime.datetime.utcnow()).replace(' ', '_').replace('/', '_').replace(':', '_')
         logging.info('Batch name: {}'.format(BATCH_NAME))
     return BATCH_NAME
 
@@ -189,7 +190,7 @@ def gen_x_y(uncleaned_text, y_list=None):
         cleaned_text_indices.append(text_indices)
 
     # Convert all sequences into X and Y matrices
-    x = pad_sequences(cleaned_text_indices, maxlen=get_conf('x_maxlen'), value= max(indices_char.keys())+1)
+    X = pad_sequences(cleaned_text_indices, maxlen=get_conf('x_maxlen'), value= max(indices_char.keys())+1)
     y = numpy.array(y_list, dtype=bool)
 
-    return x, y
+    return X, y

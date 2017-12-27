@@ -6,10 +6,13 @@ Code Template
 
 """
 import logging
+import os
 
 import pandas
+from keras.callbacks import TensorBoard, ModelCheckpoint
 
 import lib
+import models
 from reddit_scraper import scrape_subreddit
 
 
@@ -21,13 +24,15 @@ def main():
     """
     logging.basicConfig(level=logging.INFO)
 
+    logging.info('Beginning batch: {}'.format(lib.get_batch_name()))
+
     if lib.get_conf('new_data_pull'):
         observations = extract()
         observations.to_feather(lib.get_conf('raw_observations_feather_path'))
 
     observations = pandas.read_feather(lib.get_conf('raw_observations_feather_path'))
-    transform(observations)
-    model()
+    observations, X, y = transform(observations)
+    model(observations, X, y)
     load()
     pass
 
@@ -48,22 +53,39 @@ def transform(observations):
     if lib.get_conf('test_run'):
         logging.info('Sample run, selecting random sub-sample of observations')
         observations = observations.sample(n=150).copy()
+    logging.info('Utilizing {} observations'.format(len(observations.index)))
 
     # Create modeling text
     observations['modeling_text'] = observations['title'] + ' ' + observations['selftext']
     observations['spoiler'] = observations['spoiler'].apply(eval)
 
-    x, y = lib.gen_x_y(observations['modeling_text'], observations['spoiler'])
+    X, y = lib.gen_x_y(observations['modeling_text'], observations['spoiler'])
 
     logging.info('Spoilers: {}. Observations: {}'.format(sum(observations['spoiler']), len(observations.index)))
 
     lib.archive_dataset_schemas('transform', locals(), globals())
     logging.info('End transform')
-    pass
+    return observations, X, y
 
 
-def model():
+def model(observations, X, y):
     logging.info('Begin model')
+
+    # Set up callbacks
+    tf_log_path = os.path.join(os.path.expanduser('~/log_dir'), lib.get_batch_name())
+    logging.info('Using Tensorboard path: {}'.format(tf_log_path))
+
+    mc_log_path = os.path.join(lib.get_conf('model_checkpoint_path'),
+                               lib.get_batch_name() + '_epoch_{epoch:03d}_val_loss_{val_loss:.2f}.h5py')
+    logging.info('Using mc_log_path path: {}'.format(mc_log_path))
+    callbacks = [TensorBoard(log_dir=tf_log_path),
+                 ModelCheckpoint(mc_log_path)]
+
+    # Create model
+    bool_model = models.lstm_embedding(X, y)
+
+    # Fit model
+    bool_model.fit(X, y, callbacks=callbacks, validation_split=.2)
 
     lib.archive_dataset_schemas('model', locals(), globals())
     logging.info('End model')
