@@ -27,4 +27,19 @@ Model
 Data
  - Evaluating post length. 
  - Based on post length histograms, it would appear that 2k is a decent length
- ®- Running a new data pull, for 400 days
+ - Running a new data pull, for 400 days
+ 
+## 2018-01-11
+
+### Writeup
+
+TODO
+
+ - Pool results from model runs
+ - Workout description of different model types
+ - Create writeup outline
+ 
+Results
+
+ - 
+ 
