@@ -5,22 +5,25 @@ TL;DR
 Intro
 
  - Project motivation
- - Data
-
- - Model types
-   - Why char level
-   - CNN / LSTM, embedding
  - Problem space
 
 Building
 
- - Scraper
- - Data quality questions
- - Building pipelines
- - Hyperparam choices
- - Training environment / machiens
+ - Data
+   - Starwars movie / spoilers
+   - Class balance
+   - Scraper
+   - 400 days, 7511 spoilers, 45978 observations 
+ - Models
+   - Why char level
+   - embedding
+   - CNN / LSTM, 
+   - Hyperparam choices
+   - Building pipelines
+ - Training environment / machines
 
 Wrap up
 
  - Results
  - Lessons learned
+ - Future work

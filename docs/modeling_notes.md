@@ -41,5 +41,11 @@ TODO
  
 Results
 
- - 
+ - Aggregrating results from all the machines. 
+ - Moving results to repo
+ 
+Outline
+
+ - Writing outline
+ - Second pass at outlines
  
