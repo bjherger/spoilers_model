@@ -64,9 +64,59 @@ I chose to utilize a character level model, due to the large / irregular vocabul
 Wars and and internet forum (`porgs` anybody?). Additionally, this approach allowed me to evaluate character level model 
 architectures I had not used before.
  
+Additionally, I elected to use a character level embedding model. While a cursory analysis and past experience have 
+shown little difference between an explicit embedding layer and feeding character indices directly into a dense layer, 
+this makes post flight analysis of different characters and borrowing from other models easier. 
 
-Additionally, I elected to use a character level embedding model
+In addition to the embedding layer, I tried a few different architectures, including:
+
+```python
+    x = sequence_input
+    x = embedding_layer(x)
+    x = Dropout(.2)(x)
+    x = Conv1D(32, 10, activation='relu')(x)
+    x = Conv1D(32, 10, activation='relu')(x)
+    x = MaxPooling1D(3)(x)
+    x = Flatten()(x)
+    x = Dense(128, activation='relu')(x)
+    x = output_layer(x)
+``` 
+**CNN Architecture**
+
+```python
+    x = sequence_input
+    x = embedding_layer(x)
+    x = Dropout(.2)(x)
+    x = LSTM(128)(x)
+    x = output_layer(x)
+```
+**LSTM Architecture**
+
+```python
+    x = sequence_input
+    x = embedding_layer(x)
+    x = Dropout(.2)(x)
+    x = Conv1D(32, 10, padding='valid', activation='relu')(x)
+    x = Conv1D(32, 10, padding='valid', activation='relu')(x)
+    x = MaxPooling1D(3)(x)
+    x = LSTM(128)(x)
+    x = output_layer(x)
+```
+**CNN, followed by LSTM architecture**
+
+Though these architectures (and many variations on them) are common in literature for character models, I haven't seen 
+many papers suggesting hyper-parameters, or guidance for when to use one architecture over another. This data set has 
+proven to be a great opportunity to get hands-on experience.  
 
 ### Training
+
+Due to the lengthy train time for LSTM models, I utilized a few p3.2xlarge EC2 instances (I had some free credits to 
+burn). Model training wasn't too awful, with 300 epochs clocking in at a few hours for the deepest / widest models 
+evaluated (~$12 / model).
+
+Because I was exploring a wide variety models, I wasn't quite sure when each model would overfit. Accordingly, I set 
+each model to fit for a large number of epochs (300), and stopped training each model when validation loss consistently 
+increased. For the CNN model this was pretty early at around 9 epochs, but the LSTM models took considerably longer to 
+saturate.  
 
 ## Wrap up
