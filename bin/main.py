@@ -82,7 +82,7 @@ def model(observations, X, y):
                  ModelCheckpoint(mc_log_path)]
 
     # Create model
-    bool_model = models.cnn_embedding(X, y)
+    bool_model = models.cnn_lstm_embedding(X, y)
 
     # Fit model
     bool_model.fit(X, y, callbacks=callbacks, validation_split=.2, epochs=300, batch_size=512)
