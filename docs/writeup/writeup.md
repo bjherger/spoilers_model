@@ -1,5 +1,5 @@
 # Automated Movie Spoiler Tagging
-# Comparing Character Level Deep LearningMmodels
+**Comparing Character Level Deep Learning Models**
 
 **tl;dr:** I trained a model to determine if Reddit posts contain Star Wars spoilers. Simpler models outperformed
 more complex models, producing surprisingly good results. 
