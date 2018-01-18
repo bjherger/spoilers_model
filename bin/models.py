@@ -157,7 +157,7 @@ def bi_lstm_embedding(X, y):
 
     x = sequence_input
     x = embedding_layer(x)
-    x = Bidirectional(LSTM(256))(x)
+    x = Bidirectional(LSTM(128))(x)
     x = output_layer(x)
 
     optimizer = RMSprop(lr=.001)
