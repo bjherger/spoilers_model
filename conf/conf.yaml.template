@@ -10,3 +10,4 @@ history_num_days: 400
 raw_observations_feather_path: ../data/serialized/raw_observations_400.feather
 x_maxlen: 2000
 model_checkpoint_path: ../data/output/model_checkpoints
+num_epochs: 100

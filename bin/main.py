@@ -85,7 +85,7 @@ def model(observations, X, y):
     bool_model = models.bi_lstm_embedding(X, y)
 
     # Fit model
-    bool_model.fit(X, y, callbacks=callbacks, validation_split=.2, epochs=1, batch_size=512)
+    bool_model.fit(X, y, callbacks=callbacks, validation_split=.2, epochs=lib.get_conf('num_epochs'), batch_size=512)
 
     lib.archive_dataset_schemas('model', locals(), globals())
     logging.info('End model')
