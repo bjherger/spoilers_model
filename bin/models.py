@@ -8,7 +8,7 @@ Code Template
 import keras
 import numpy
 from keras import Model
-from keras.layers import Embedding, Dense, LSTM, Conv1D, MaxPooling1D, Flatten, Dropout, Bidirectional
+from keras.layers import Embedding, Dense, LSTM, Conv1D, MaxPooling1D, Flatten, Bidirectional
 from keras.optimizers import Adam, RMSprop
 
 import lib
@@ -55,7 +55,6 @@ def cnn_embedding(X, y):
 
     x = sequence_input
     x = embedding_layer(x)
-    x = Dropout(.2)(x)
     x = Conv1D(32, 10, activation='relu')(x)
     x = Conv1D(32, 10, activation='relu')(x)
     x = MaxPooling1D(3)(x)
@@ -109,8 +108,7 @@ def lstm_embedding(X, y):
 
     x = sequence_input
     x = embedding_layer(x)
-    x = Dropout(.2)(x)
-    x = LSTM(128)(x)
+    x = LSTM(256)(x)
     x = output_layer(x)
 
     optimizer = RMSprop(lr=.001)
@@ -159,8 +157,7 @@ def bi_lstm_embedding(X, y):
 
     x = sequence_input
     x = embedding_layer(x)
-    x = Dropout(.2)(x)
-    x = Bidirectional(LSTM(128))(x)
+    x = Bidirectional(LSTM(256))(x)
     x = output_layer(x)
 
     optimizer = RMSprop(lr=.001)
@@ -209,14 +206,14 @@ def cnn_lstm_embedding(X, y):
 
     x = sequence_input
     x = embedding_layer(x)
-    x = Dropout(.2)(x)
     x = Conv1D(32, 10, padding='valid', activation='relu')(x)
     x = Conv1D(32, 10, padding='valid', activation='relu')(x)
     x = MaxPooling1D(3)(x)
-    x = LSTM(128)(x)
+    x = LSTM(256)(x)
     x = output_layer(x)
 
     optimizer = RMSprop(lr=.001)
     bool_model = Model(sequence_input, x)
     bool_model.compile(optimizer=optimizer, loss='binary_crossentropy', metrics=['acc'])
+
     return bool_model
