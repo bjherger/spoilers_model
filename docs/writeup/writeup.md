@@ -153,3 +153,17 @@ it. This idea could take some work, but it seems readily feasible. I might propo
 As always, code and data are available on GitHub, at 
 [https://github.com/bjherger/spoilers_model](https://github.com/bjherger/spoilers_model). Just remember, the best 
 feature requests come as PRs. 
+
+## Update
+
+After the original post, I did a second pass at this project to dive a little deeper:
+
+ - LSTM dropout: Using dropout before an LSTM layer didn't quite make sense, and so I removed it. The LSTM models loss 
+ and validation loss both improved drastically. 
+ - Accuracy metric: It's much easier to evaluate a model when you've got the right metrics handy. I should probably add 
+ AUC as well...
+ - Bi-directional LSTM: Bi-directional LSTMs have been used to better represent text inputs. Utilizing a bi-directional 
+ LSTM performed roughly as well as a single, forward, LSTM layer. 
+ - Data issues: Looking at the original data set, it would appear that a significant portion are submissions with 
+ an image in the body, and no text. This could lead to cases where the model has insufficient data to make an informed 
+ inference. 
