@@ -7,7 +7,6 @@ Code Template
 """
 import datetime
 import logging
-import pprint
 import time
 
 import pandas
@@ -16,10 +15,10 @@ import praw
 import lib
 
 
-def scrape_subreddit(subreddit_name, num_days):
+def scrape_subreddit(subreddit_name):
     # TODO Docstring
 
-    logging.info('Beginning Reddit scraper, for subreddit: {}, and num_days: {}'.format(subreddit_name, num_days))
+    logging.info('Beginning Reddit scraper, for subreddit: {}'.format(subreddit_name))
 
     # Reference variables
     parsed_submission_agg = list()
@@ -36,15 +35,8 @@ def scrape_subreddit(subreddit_name, num_days):
     subreddit = reddit.subreddit(subreddit_name)
     logging.debug('Searched for subreddit: {}, found subreddit: {}, {}'.format(subreddit_name, subreddit.display_name, subreddit.title))
 
-    # Compute correct time range (current datetime - num_days to current datetime)
-    end_datetime = datetime.datetime.utcnow()
-    end_datetime_unix = time.mktime(end_datetime.timetuple())
-    start_datetime = end_datetime - datetime.timedelta(days=num_days)
-    start_datetime_unix = time.mktime(start_datetime.timetuple())
-    logging.debug('Time range: {} to {}'.format(start_datetime, end_datetime))
-
     # Iterate through posts chronologically
-    for index, submission in enumerate(subreddit.submissions(start_datetime_unix, end_datetime_unix)):
+    for index, submission in enumerate(subreddit.new(limit=1000)):
         logging.info('Working number {}, submission: {}'.format(index, submission))
 
         # Parse each submission and extract essential fields

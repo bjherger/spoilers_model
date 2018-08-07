@@ -40,7 +40,7 @@ def main():
 def extract():
     logging.info('Begin extract')
 
-    observations = scrape_subreddit(lib.get_conf('subreddit'), lib.get_conf('history_num_days'))
+    observations = scrape_subreddit(lib.get_conf('subreddit'))
 
     logging.info('End extract')
     lib.archive_dataset_schemas('extract', locals(), globals())
